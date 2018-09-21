@@ -16,27 +16,36 @@ import com.bolsadeideas.springboot.app.models.entity.Client;
  *
  */
 @Service
-public class ClientService {
+public class ClientService implements IClientService {
 
 	@Autowired
 	private IClientDao clientDao;
 
-	public void retrieveAll(Model model) {
-		model.addAttribute("title", "Clients lists");
-		model.addAttribute("clients", clientDao.findAll());
-	}
-
+	@Override
 	public void createModel(Map<String, Object> model) {
 		Client client = new Client();
 		model.put("client", client);
 		model.put("title", "Client Form");
 	}
 
+	@Override
 	public void save(Client client) {
 		clientDao.save(client);
 	}
 
-	public String findById(Long id, Map<String, Object> model) {
+	@Override
+	public void delete(Long id) {
+		clientDao.delete(id);
+	}
+
+	@Override
+	public void findAll(Model model) {
+		model.addAttribute("title", "Clients lists");
+		model.addAttribute("clients", clientDao.findAll());
+	}
+
+	@Override
+	public String findOne(Long id, Map<String, Object> model) {
 
 		Client client = clientDao.findOne(id);
 
@@ -44,11 +53,6 @@ public class ClientService {
 		model.put("title", "Edit client");
 
 		return "form";
-
-	}
-
-	public void delete(Long id) {
-		clientDao.delete(id);
 	}
 
 }

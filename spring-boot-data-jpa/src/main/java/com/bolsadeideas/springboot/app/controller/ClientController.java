@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.bolsadeideas.springboot.app.models.entity.Client;
-import com.bolsadeideas.springboot.app.service.ClientService;
+import com.bolsadeideas.springboot.app.service.IClientService;
 
 /**
  * Controller for clients
@@ -28,12 +28,12 @@ import com.bolsadeideas.springboot.app.service.ClientService;
 public class ClientController {
 
 	@Autowired
-	private ClientService clientService;
+	private IClientService clientService;
 
 	@GetMapping(value = "/getAll")
 	public String getAll(Model model) {
 
-		clientService.retrieveAll(model);
+		clientService.findAll(model);
 
 		return "getAll";
 	}
@@ -62,7 +62,7 @@ public class ClientController {
 	@GetMapping(value = "/form/{id}")
 	public String edit(@PathVariable(value = "id") Long id, Map<String, Object> model) {
 		if (id > 0) {
-			return clientService.findById(id, model);
+			return clientService.findOne(id, model);
 		} else {
 			return "redirect:/getAll";
 		}
