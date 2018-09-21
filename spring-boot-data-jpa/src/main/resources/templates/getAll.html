@@ -47,6 +47,7 @@
 					<th>Email</th>
 					<th>Date</th>
 					<th>Edit</th>
+					<th>Delete</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -58,6 +59,9 @@
 					<td th:text="${client.createdAt}"></td>
 					<td><a class="btn btn-primary btn-xs"
 						th:href="@{/form/}+${client.id}" th:text="'Edit'"></a></td>
+					<td><a class="btn btn-danger btn-xs"
+						th:href="@{/delete/}+${client.id}" th:text="'Delete'"
+						onclick="return confirm('Are you sure?');"></a></td>
 				</tr>
 			</tbody>
 

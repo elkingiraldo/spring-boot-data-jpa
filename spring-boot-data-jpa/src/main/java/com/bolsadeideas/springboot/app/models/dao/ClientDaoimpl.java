@@ -40,8 +40,15 @@ public class ClientDaoimpl implements IClientDao {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Client findOne(Long id) {
 		return em.find(Client.class, id);
+	}
+
+	@Override
+	@Transactional
+	public void delete(Long id) {
+		em.remove(findOne(id));
 	}
 
 }

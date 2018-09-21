@@ -47,4 +47,8 @@ public class ClientService {
 
 	}
 
+	public void delete(Long id) {
+		clientDao.delete(id);
+	}
+
 }

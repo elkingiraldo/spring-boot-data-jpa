@@ -68,4 +68,12 @@ public class ClientController {
 		}
 	}
 
+	@GetMapping(value = "/delete/{id}")
+	public String delete(@PathVariable(value = "id") Long id) {
+		if (id > 0) {
+			clientService.delete(id);
+		}
+		return "redirect:/getAll";
+	}
+
 }
