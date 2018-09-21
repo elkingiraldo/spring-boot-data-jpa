@@ -1,12 +1,13 @@
 package com.bolsadeideas.springboot.app.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.bolsadeideas.springboot.app.models.dao.IClientDao;
+import com.bolsadeideas.springboot.app.models.dao.IClientRepository;
 import com.bolsadeideas.springboot.app.models.entity.Client;
 
 /**
@@ -18,8 +19,11 @@ import com.bolsadeideas.springboot.app.models.entity.Client;
 @Service
 public class ClientService implements IClientService {
 
+//	@Autowired
+//	private IClientDao clientDao;
+
 	@Autowired
-	private IClientDao clientDao;
+	private IClientRepository clientRepository;
 
 	@Override
 	public void createModel(Map<String, Object> model) {
@@ -30,24 +34,24 @@ public class ClientService implements IClientService {
 
 	@Override
 	public void save(Client client) {
-		clientDao.save(client);
+		clientRepository.save(client);
 	}
 
 	@Override
 	public void delete(Long id) {
-		clientDao.delete(id);
+		clientRepository.delete(id);
 	}
 
 	@Override
 	public void findAll(Model model) {
 		model.addAttribute("title", "Clients lists");
-		model.addAttribute("clients", clientDao.findAll());
+		model.addAttribute("clients", (List<Client>) clientRepository.findAll());
 	}
 
 	@Override
 	public String findOne(Long id, Map<String, Object> model) {
 
-		Client client = clientDao.findOne(id);
+		Client client = clientRepository.findOne(id);
 
 		model.put("client", client);
 		model.put("title", "Edit client");
