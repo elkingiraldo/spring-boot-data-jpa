@@ -36,4 +36,15 @@ public class ClientService {
 		clientDao.save(client);
 	}
 
+	public String findById(Long id, Map<String, Object> model) {
+
+		Client client = clientDao.findOne(id);
+
+		model.put("client", client);
+		model.put("title", "Edit client");
+
+		return "form";
+
+	}
+
 }
